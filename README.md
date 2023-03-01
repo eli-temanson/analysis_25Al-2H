@@ -59,7 +59,7 @@ Energy (MeV/u)
 ```
 git init -b main
 git add . && git commit -m "initial commit"
-git submodule add https://github.com/eli-temanson/catima.git
+git submodule add https://github.com/eli-temanson/catima.git src/vendor/catima
 git remote add origin https://github.com/eli-temanson/analysis_25Al-2H.git
 git push origin main
 ```
