@@ -84,7 +84,7 @@ void cs_corr() {
     legend->AddEntry(data,"C^{2}S_{l=0} = 0.08 from #sigma matching","p");
     legend->AddEntry(data1,"CRC with fixed C^{2}S_{l=0}/C^{2}S_{l=2}","l");
     legend->AddEntry(cross_section,"Experimental Cross-section","l");
-    legend->AddEntry(c2s_hamill_low,"Hamill et. al","l");
+    legend->AddEntry(c2s_hamill_low,"Hamill et. al, ^{26}Mg","l");
 
     legend->SetTextSize(0.04);
     legend->Draw("SAME");
