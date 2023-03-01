@@ -1,0 +1,25 @@
+neut.array.zpos		-228.7
+neut.array.rotz		225
+
+neut.det[0].t1	0.306487
+neut.det[1].t1	0.304266
+neut.det[2].t1	0.304266
+neut.det[3].t1	0.289577
+neut.det[4].t1	0.304266
+neut.det[5].t1	0.311027
+neut.det[6].t1	0.322990
+neut.det[7].t1	0.299919
+neut.det[8].t1	0.299919
+neut.det[9].t1	0.311027
+
+neut.det[0].t0	0.0
+neut.det[1].t0	0.0
+neut.det[2].t0	2.0
+neut.det[3].t0	0
+neut.det[4].t0	0
+neut.det[5].t0	0
+neut.det[6].t0	0
+neut.det[7].t0	4.0
+neut.det[8].t0	4.0
+neut.det[9].t0	-2.0
+

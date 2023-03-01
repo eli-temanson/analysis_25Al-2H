@@ -1,0 +1,35 @@
+ic.ESeg.elowlimit	50.
+ic.ESeg.ehighlimit	1200.
+ic.DESeg.elowlimit	205.
+ic.DESeg.ehighlimit	650.
+
+ic.xgrid.ehighlimit	4050.
+ic.xgrid.elowlimit	200.
+ic.ygrid.ehighlimit	4050.
+ic.ygrid.elowlimit	200.
+
+ic.xpos	-14.75
+ic.ypos	-14.05
+ic.zpos	375.
+ic.zrot	-90.0
+
+#ic.ESeg.eshift 	    -1.9892
+#ic.ESeg.elin 	    0.0474
+#ic.DESeg.eshift	    0.5552
+#ic.DESeg.elin	    0.0332
+
+#ic.ESeg.eshift 	    -2.22386
+#ic.ESeg.elin 	    0.04726
+#ic.DESeg.eshift	    -1.52383
+#ic.DESeg.elin	    0.03776
+
+ic.ESeg.eshift 	    -2.463
+ic.ESeg.elin 	    0.048
+ic.DESeg.eshift	    0.477
+ic.DESeg.elin	    0.034
+
+ic.ESeg.tlin	0.304266
+
+ic.p2   0.0
+ic.p1   0.89
+ic.p0   39.0

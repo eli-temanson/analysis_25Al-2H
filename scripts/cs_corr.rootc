@@ -1,0 +1,168 @@
+
+
+
+void cs_corr() {
+
+    double cs = 5.83; 
+    double cs_error = 0.87; 
+
+    // fix ratio
+    Double_t X1[] = {0.0, 0.05, 0.2};
+    Double_t Y1[]= {0.0, 3.67, 14.69};
+    auto data1 = new TGraph(3,X1,Y1);
+
+    // fix C2S(l=2)
+    // Double_t X2[] = {0.05, 0.2};
+    // Double_t Y2[] = {5.93, 11.30};
+    // auto data2 = new TGraph(2,X2,Y2);
+
+
+    TCanvas *c1 = new TCanvas("c1","",325,325);
+    gPad->SetTicks();
+    Double_t pltXmin=0.0, pltXmax=0.2;
+    Double_t pltYmin=0.0, pltYmax=14.0;
+    auto frame = c1->DrawFrame(pltXmin,pltYmin, pltXmax,pltYmax,";C^{2}S (l=0);#sigma (3^{+}) (mb)");
+
+    frame->GetYaxis()->SetTitleSize(0.045);
+    frame->GetYaxis()->SetTitleOffset(1.0);
+    frame->GetYaxis()->SetLabelSize(0.045);
+    frame->GetYaxis()->SetLabelOffset(0.008);
+
+    frame->GetXaxis()->SetTitleOffset(1.0);
+    frame->GetXaxis()->SetTitleSize(0.045);
+    frame->GetXaxis()->SetLabelSize(0.045);
+    frame->GetXaxis()->SetNdivisions(509);
+
+    Double_t x[1] = {0.08};
+    Double_t y[1] = {5.83};
+    auto data = new TGraph(1,x,y);
+    data->SetMarkerColor(2);
+    data->SetMarkerStyle(21);
+    data->Draw("p");
+
+    // Hamill
+    // Double_t X[1] = {0.11};
+    // Double_t eX[1] = {0.02};
+    // Double_t Y[1] = {8.08};
+    // Double_t eY[1] = {1.64};
+    // auto data = new TGraphErrors(1,X,Y,eX,eY);
+    // data->Draw();
+    auto c2s_hamill_low = new TLine(0.09, 0, 0.09, 8);
+    c2s_hamill_low->SetLineStyle(3);
+    c2s_hamill_low->Draw();
+
+    auto c2s_hamill_high = new TLine(0.11, 0, 0.11, 8);
+    c2s_hamill_high->SetLineStyle(3);
+    c2s_hamill_high->Draw();
+
+    Int_t col1 = TColor::GetColor("#c8b95d");
+    Int_t col2 = TColor::GetColor("#2cb4a4");
+    Int_t col3 = TColor::GetColor("#342c84");
+    Int_t col4 = TColor::GetColor("#1484d4");
+
+    data1->SetLineColor(col4);
+    data1->Draw();
+    // data2->SetLineColor(col4);
+    // data2->Draw();
+
+
+    // plot lines TLine(Double_t x1,Double_t y1,Double_t x2,Double_t y2)
+    auto cross_section = new TLine(pltXmin, cs, pltXmax, cs);
+    cross_section->Draw();
+
+    auto cross_section_low = new TLine(pltXmin, cs-cs_error, pltXmax, cs-cs_error);
+    cross_section_low->SetLineStyle(2);
+    cross_section_low->Draw();
+
+    auto cross_section_high = new TLine(pltXmin, cs+cs_error, pltXmax, cs+cs_error);
+    cross_section_high->SetLineStyle(2);
+    cross_section_high->Draw();
+
+    // legend
+    auto legend = new TLegend(0.2,0.6,0.5,0.8);
+    legend->SetBorderSize(0);
+    legend->AddEntry(data,"C^{2}S_{l=0} = 0.08 from #sigma matching","p");
+    legend->AddEntry(data1,"CRC with fixed C^{2}S_{l=0}/C^{2}S_{l=2}","l");
+    legend->AddEntry(cross_section,"Experimental Cross-section","l");
+    legend->AddEntry(c2s_hamill_low,"Hamill et. al","l");
+
+    legend->SetTextSize(0.04);
+    legend->Draw("SAME");
+
+
+
+
+
+
+    // const Int_t n = 500;
+    // Double_t x[n]={0.0};
+    // Double_t y[n]={0.0};
+    // Double_t ymin[n]={0.0};
+    // Double_t ymax[n]={0.0};
+    // Double_t y1[n]={0.0};
+    // Int_t i;
+
+    // for(i=0;i<n;i++){
+    //     x[i] = i*(pltXmax-pltXmin)/n;
+    //     ymax[i] = cs + cs_error;
+    //     ymin[i] = cs - cs_error;
+    //     y[i] = cs;
+    // }
+
+    /* // Separation energy */
+    /* auto cs_val = new TLine(x0,0,x0,ymax); */  
+    /* l0->SetLineStyle(kDashed); //dashed *1/ */
+    /* l0->SetLineColor(kBlack); */
+    /* l0->Draw(); */ 
+
+    // TGraph *gr = new TGraph(n,x,y);
+    // TGraph *grmin = new TGraph(n,x,ymin);
+    // TGraph *grmax = new TGraph(n,x,ymax);
+    // TGraph *grshade = new TGraph(2*n);
+
+    // for(i=0;i<n;i++) {
+    //     grshade->SetPoint(i,x[i],ymax[i]);
+    //     grshade->SetPoint(n+i,x[n-i-1],ymin[n-i-1]);
+    // }
+
+    // gr->GetXaxis()->SetRangeUser(0.065, 0.145);
+    // gr->GetYaxis()->SetRangeUser(pltYmin, pltYmax);
+    // gr->GetXaxis()->SetTitle("C^{2}S_{l=0}");
+    // gr->GetXaxis()->SetTitleOffset(1.1);
+    // gr->GetYaxis()->SetTitle("#sigma_{total}(3^{+}) (mb)");
+    // gr->SetTitle("");
+
+    // gr->Draw("AC SAME");
+
+    //grshade->SetFillStyle(3003);
+    //gStyle->SetHatchesSpacing(1.5);    
+    // Int_t col2 = TColor::GetColor("#342c84");
+    //grshade->SetFillColorAlpha(col2,0.2);
+    // grshade->Draw("L SAME");
+
+    //grmin->SetLineStyle(2);
+    //grmax->SetLineStyle(2);
+    
+    // Int_t col1 = TColor::GetColor("#c8b95d");
+    // Int_t col3 = TColor::GetColor("#1484d4");
+    
+    // grmin->SetLineColor(col1);
+    // grmax->SetLineColor(col1);
+    
+    // grmin->Draw("L SAME");
+    // grmax->Draw("L SAME");
+
+    // data1->Draw("L SAME");
+
+    // data2->SetLineColor(col3);
+    // data2->Draw("L SAME");
+
+
+    // auto legend = new TLegend(0.2,0.6,0.5,0.8);
+    // legend->SetBorderSize(0);
+    // legend->AddEntry(data1,"C^{2}S_{l=0}/C^{2}S_{l=2} = 0.527","l");
+    // // legend->AddEntry(data2,"C^{2}S_{l=2} = 0.234","l");
+    // legend->SetTextSize(0.04);
+    // legend->Draw("SAME");
+
+}

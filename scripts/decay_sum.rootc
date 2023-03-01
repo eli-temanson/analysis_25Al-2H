@@ -1,0 +1,155 @@
+// -*- C++ -*-
+
+void decay_sum(){
+
+    gStyle->SetOptStat(0);
+    gStyle->SetOptTitle(0);
+
+    TCanvas *c1 = new TCanvas("c1","c1",325,433);
+    c1->Draw();
+    c1->Divide(1,2,0,0);
+
+    c1->cd(1);
+
+    gPad->SetLeftMargin(0.15);
+    gPad->SetRightMargin(0.005);
+    gPad->SetBottomMargin(0.0);
+    gPad->SetTopMargin(0.05); 
+
+    TFile *file_sim1 = TFile::Open("/mnt/data0/2014_06_25Al_dn_jbaker/Al25dn_fr_l0l2.root");
+    TH1F *decay_neutron = (TH1F*)file_sim1->Get("decay_sum_ke_n_theta");
+    decay_neutron->Draw("col");
+    decay_neutron->GetYaxis()->SetRangeUser(25,180);
+    decay_neutron->GetXaxis()->SetRangeUser(78,107);
+    decay_neutron->SetTitle(";;c.m. neutron angle (degrees)");
+    decay_neutron->GetYaxis()->SetTitleOffset(1.0);
+    decay_neutron->GetYaxis()->SetTitleSize(0.065);
+    decay_neutron->GetYaxis()->SetLabelSize(0.06);
+    decay_neutron->GetYaxis()->SetLabelOffset(0.008);
+
+    TPaveText *a = new TPaveText(80,155,83,175,"NB"); // x1,y1, x2,y2
+    a->AddText("(a)");  
+    a->SetTextFont(42);
+    a->SetTextSize(0.07);
+    a->SetTextColor(kBlack); 
+    a->SetFillStyle(0);
+    a->SetBorderSize(0);
+    a->Draw("same");
+
+
+    c1->cd(2); // Go back to the main canvas before defining pad2
+    gPad->SetLeftMargin(0.15);
+    gPad->SetRightMargin(0.005);
+    gPad->SetBottomMargin(0.15);
+    gPad->SetTopMargin(0.0); 
+
+
+    THStack *hs = new THStack("hs","");
+    hs->SetTitle(";E(p) + E(^{25}Al) (MeV);normalized counts (arb.)");
+    Double_t ScaleFactor,TCS;
+
+    // =====================================
+    // EXP. DATA
+
+    // TFile *file_analysis = TFile::Open("/mnt/data0/2014_06_25Al_dn_jbaker/output_2022_10_14.root");
+    TFile *file_analysis = TFile::Open("/mnt/data0/2014_06_25Al_dn_jbaker/output_2022_10_19.root");
+    TH1F *data_raw = (TH1F*)file_analysis->Get("DecaySum_KE_3p");
+
+    gStyle->SetOptStat(0); // turn off statistic box
+
+    ScaleFactor = 1.0/data_raw->Integral();
+    data_raw->Scale(ScaleFactor);
+
+    data_raw->SetMarkerColor(kBlack);
+    data_raw->SetMarkerStyle(20);
+    data_raw->SetMarkerSize(0.5);
+    gStyle->SetErrorX(0);
+
+    data_raw->SetMinimum(0.0);
+    data_raw->SetMaximum(0.22);
+
+    hs->Add(data_raw,"E1");
+
+
+    // =====================================
+    // SIMULATON-1
+
+    TFile *file_sim = TFile::Open("/mnt/data0/2014_06_25Al_dn_jbaker/Al25dn_fr_l0l2.root");
+    /* TH1F *sim_h = (TH1F*)file_sim->Get("decay_sum_ke"); */
+    TH1F *sim_h = (TH1F*)file_sim->Get("decay_sum_ke_reco_half_target");
+
+    ScaleFactor = 1.0/sim_h->Integral();
+    sim_h->Scale(ScaleFactor);
+
+    sim_h->SetTitle("Sim.");  //amp, 0.4175
+
+    Int_t col2 = TColor::GetColor("#2cb4a4");
+    sim_h->SetLineColor(col2);
+
+    hs->Add(sim_h, "hist");
+
+
+    // =====================================
+    // Down-Scaled Beam 
+
+    TFile *file_beam = TFile::Open("/mnt/data0/2014_06_25Al_dn_jbaker/ds_output_2022_10_19.root");
+    TH1F *h_beam = (TH1F*)file_beam->Get("DS_IonC_beam_reco_p1");
+
+    ScaleFactor = 1.0/h_beam->Integral();
+    h_beam->Scale(ScaleFactor);
+
+    Int_t col1 = TColor::GetColor("#040404");
+    h_beam->SetLineColor(col1);
+    h_beam->SetLineStyle(2);
+
+    hs->Add(h_beam,"hist");
+
+    // =====================================
+    // Simulations Beam
+
+    TFile *file_sim_beam = TFile::Open("~/dev/25Al+d_2014/dev/ic_sim/ic_resolution.root");
+    TH1F *h_sim_beam = (TH1F*)file_sim_beam->Get("sim_beam_reco");
+
+    ScaleFactor = 1.0/h_sim_beam->Integral();
+    h_sim_beam->Scale(ScaleFactor);
+
+    h_sim_beam->SetTitle("Sim. ^{25}Al Beam"); 
+
+    Int_t col3 = TColor::GetColor("#342c84");
+    h_sim_beam->SetLineColor(col3);
+    
+    hs->Add(h_sim_beam,"hist");
+
+    // =====================================
+    // Don't Touch
+
+    hs->Draw("nostack");
+    
+    hs->GetXaxis()->SetLimits(78, 107);
+    
+    hs->GetYaxis()->SetTitleSize(0.06);
+    hs->GetYaxis()->SetTitleOffset(1.0);
+    hs->GetYaxis()->SetLabelSize(0.06);
+    hs->GetYaxis()->SetLabelOffset(0.008);
+    hs->GetYaxis()->SetNdivisions(509);
+
+    hs->GetXaxis()->SetTitleOffset(1.05);
+    hs->GetXaxis()->SetTitleSize(0.06);
+    hs->GetXaxis()->SetLabelSize(0.06);
+    
+    // TLegend* myleg = c1->BuildLegend(); 
+
+
+    TPaveText *b = new TPaveText(80,0.17,83,0.22,"NB"); // x1,y1, x2,y2
+    b->AddText("(b)");  
+    b->SetTextFont(42);
+    b->SetTextSize(0.07);
+    b->SetTextColor(kBlack); 
+    b->SetFillStyle(0);
+    b->SetBorderSize(0);
+    b->Draw("same");
+
+
+    c1->SaveAs("decay_sum_reco.png");
+    c1->SaveAs("decay_sum_reco.eps");
+}

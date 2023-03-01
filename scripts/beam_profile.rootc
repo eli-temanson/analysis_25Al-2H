@@ -1,0 +1,82 @@
+
+
+// I need to update this to look like
+ 
+void beam_profile()
+{
+
+    TFile *file1 = TFile::Open("/mnt/data0/2014_06_25Al_dn_jbaker/ds_output_2022_10_14.root");
+
+    auto c1 = new TCanvas("c1","c1",325,325);
+    TH2F *h1 = (TH2F*)file1->Get("DS_IonC_RawPID"); 
+
+    gStyle->SetOptStat(0);  
+    h1->SetTitle(";Energy Depositied (arb.); Energy Loss (arb.)");
+
+    double xmin=0,xmax=1400; //zoom into the graph with these limits
+    h1->GetXaxis()->SetRangeUser(xmin, xmax); //zoom into graph
+    double ymin=200,ymax=800; //zoom into the graph with these limits
+    h1->GetYaxis()->SetRangeUser(ymin, ymax); //zoom into graph
+
+    h1->GetXaxis()->SetTitleOffset(1.10);
+    h1->GetYaxis()->SetTitleOffset(1.40);
+
+        
+    /* double xmin=20,xmax=70; //zoom into the graph with these limits */
+    /* h1->GetXaxis()->SetRangeUser(xmin, xmax); //zoom into graph */
+    /* double ymin=5,ymax=30; //zoom into the graph with these limits */
+    /* h1->GetYaxis()->SetRangeUser(ymin, ymax); //zoom into graph */
+
+    gStyle->SetPalette(kBird); //kViridis);
+
+    h1->Draw("col");
+    gPad->Update();
+    gPad->SetTickx();
+    gPad->SetTicky();
+    
+    TPaveText *t1 = new TPaveText(1200,400,1300,500,"NB"); // x1,y1, x2,y2
+    TPaveText *t2 = new TPaveText(1100,350,1200,450,"NB"); 
+    TPaveText *t3 = new TPaveText(400,500,500,600,"NB"); 
+    // TPaveText *t4 = new TPaveText(43,15,48,17);
+
+    /* TPaveText *t1 = new TPaveText(65,22,70,24,"NB"); */ 
+    /* TPaveText *t2 = new TPaveText(60,16,65,18,"NB"); */ 
+    /* TPaveText *t3 = new TPaveText(38,22,43,24,"NB"); */ 
+    /* // TPaveText *t4 = new TPaveText(43,15,48,17); */
+
+    t1->AddText("^{25}Al^{13^{+}}");  
+    t1->SetTextFont(42);
+    t1->SetTextSize(0.05);
+    t1->SetTextColor(kBlack); 
+    t1->SetFillStyle(0);
+    t1->SetBorderSize(0);
+
+    t2->AddText("^{24}Mg^{12^{+}}");  
+    t2->SetTextFont(42);
+    t2->SetTextSize(0.05);
+    t2->SetTextColor(kBlack);
+    t2->SetFillStyle(0);
+    t2->SetBorderSize(0);
+
+    t3->AddText("^{24}Mg^{11^{+}}");  
+    t3->SetTextFont(42);
+    t3->SetTextSize(0.05);
+    t3->SetTextColor(kBlack);
+    t3->SetFillStyle(0);
+    t3->SetBorderSize(0);
+
+    // t4->AddText("^{23}Na^{11^{+}}");  
+    // t4->SetTextFont(42);
+    // t4->SetTextSize(0.06);
+    // t4->SetTextColor(kBlack);
+    // t4->SetFillStyle(3000);
+    // t4->SetLineColor(0);
+
+    t1->Draw("same");
+    t2->Draw("same");
+    t3->Draw("same");
+    // t4->Draw("same");
+
+
+    //c1->Print("../doc/Spectra/Al25dn_2014/BeamProfile.png");
+}

@@ -1,0 +1,43 @@
+S2.Rin	11.53
+S2.Rout	35.0
+S1.Rin	11.53
+S1.Rout	35.0
+
+S2.Front.elowlimit	0.
+S2.Front.ehighlimit	4096.
+S2.Back.elowlimit	0.
+S2.Back.ehighlimit	4096.
+S1.Front.elowlimit	200.
+S1.Front.ehighlimit	4096.
+S1.Back.elowlimit	200.
+S1.Back.ehighlimit	4096.
+
+S2.Front.elin	1.01089
+S2.Front.eshift	-0.19910
+S2.Back.elin	1.01089
+S2.Back.eshift	-0.19910
+S1.Front.elin	1.01089
+S1.Front.eshift	-0.19910
+S1.Back.elin	1.01089
+S1.Back.eshift	-0.19910
+	
+S2.zpos	69.
+S1.zpos 82.
+S1.xpos	0.2
+S2.xpos	0.2
+S1.ypos	-2.0
+S2.ypos	-2.0
+S1.zrot 90
+S2.zrot	0.
+
+S1.Cluster_Front  1
+S1.Cluster_Back   1
+S1.MatchDelta 	0.04
+S1.MatchEpsilon 0.0
+S1.UseBackEnergy  0
+
+S2.Cluster_Front  0
+S2.Cluster_Back   0
+S2.MatchDelta	1.0
+S2.MatchEpsilon 0.0
+S2.UseBackEnergy  1
