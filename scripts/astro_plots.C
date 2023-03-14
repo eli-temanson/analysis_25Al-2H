@@ -16,22 +16,35 @@ double reaclib_rate(double t, double coeff[]);
 
 // define global variables
 double mu = 24.990428308*1.007825031898/(1.007825031898+24.990428308); // from AME2020
+
 double er_3p = 0.4154; // MeV
 double er_3p_error = 0.0008; 
-double wg_3p = 1.78E-08; //MeV
-double er_0p = 0.3671;
-double er_0p_error = 0.0003;
-double wg_0p = 2.40E-10;
+double wg_3p = 2.62E-08; //MeV
+double er_wg_3p = wg_3p*0.25;
+
+double er_0p = 0.375;
+double er_0p_error = 0.002;
+double wg_0p = 2.20E-10;
+double er_wg_0p = wg_0p*0.3;
+
+
+// double er_0p = 0.3671;
+// double er_0p_error = 0.0003;
+// double wg_0p = 2.40E-10;
+
 double er_1p = 0.1622;
 double er_1p_error = 0.0003;
 double wg_1p = 2.60E-15;
+double er_wg_1p = wg_1p*0.3;
+
 double S0 = 0.028;
+
 
 // temperature
 std::vector<double> temp = linspace(0.01,0.71,40);
 
 // the main program, call the three plots
-void astro()
+void astro_plots()
 {
     reaction_rate();
     density();
@@ -57,11 +70,11 @@ void reaction_rate()
     for(auto& t : temp)
     {
         rate_3p.push_back(res_rate(t,wg_3p,er_3p));
-        rate_error_3p.push_back(res_rate_error(t,wg_3p,er_3p, wg_3p*0.25,er_3p_error));
+        rate_error_3p.push_back(res_rate_error(t,wg_3p,er_3p, er_wg_3p,er_3p_error));
         rate_0p.push_back(res_rate(t,wg_0p,er_0p));
-        rate_error_0p.push_back(res_rate_error(t,wg_0p,er_0p, wg_0p*0.25,er_0p_error));
+        rate_error_0p.push_back(res_rate_error(t,wg_0p,er_0p, er_wg_0p,er_0p_error));
         rate_1p.push_back(res_rate(t,wg_1p,er_1p));
-        rate_error_1p.push_back(3.5*res_rate_error(t,wg_1p,er_1p, wg_1p*0.25,er_1p_error));
+        rate_error_1p.push_back(3.0*res_rate_error(t,wg_1p,er_1p, er_wg_1p,er_1p_error));
         rate_ds.push_back(direct_capture_rate(t,13,S0));
         rate_error_ds.push_back(0.3*direct_capture_rate(t,13,S0));
     }
@@ -121,9 +134,9 @@ void density()
         double rate = res_rate(t,wg_3p,er_3p) + res_rate(t,wg_0p,er_0p) + 
             res_rate(t,wg_1p,er_1p) + direct_capture_rate(t,13,S0);
         
-        double rate_error = res_rate_error(t,wg_3p,er_3p, wg_3p*0.25,er_3p_error) + 
-            res_rate_error(t,wg_0p,er_0p, wg_0p*0.25,er_0p_error) + 
-            res_rate_error(t,wg_1p,er_1p, wg_1p*0.25,er_1p_error) + 
+        double rate_error = res_rate_error(t,wg_3p,er_3p, er_wg_3p, er_3p_error) + 
+            res_rate_error(t,wg_0p,er_0p, er_wg_0p,er_0p_error) + 
+            res_rate_error(t,wg_1p,er_1p, er_wg_1p,er_1p_error) + 
             0.3*direct_capture_rate(t,13,S0);
 
         density.push_back(al25_half_life/rate);
@@ -208,9 +221,9 @@ void reaclib()
             direct_capture_rate(t,13,S0))/rate_total);
 
         rate_error.push_back((
-            res_rate_error(t,wg_3p,er_3p, wg_3p*0.25,er_3p_error) + 
-            res_rate_error(t,wg_0p,er_0p, wg_0p*0.25,er_0p_error) + 
-            res_rate_error(t,wg_1p,er_1p, wg_1p*0.25,er_1p_error) + 
+            res_rate_error(t,wg_3p,er_3p, er_wg_3p, er_3p_error) + 
+            res_rate_error(t,wg_0p,er_0p, er_wg_0p, er_0p_error) + 
+            res_rate_error(t,wg_1p,er_1p, er_wg_1p, er_1p_error) + 
             0.3*direct_capture_rate(t,13,S0)/rate_total));
     }
 

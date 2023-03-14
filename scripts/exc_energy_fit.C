@@ -30,7 +30,8 @@ void exc_energy_fit(){
 
     // Load in rootfile, define and histogram
     // TFile *file_analysis = TFile::Open("/mnt/data0/2014_06_25Al_dn_jbaker/output_2022_10_14.root"); 
-    TFile *file_analysis = TFile::Open("/mnt/data0/2014_06_25Al_dn_jbaker/output_2022_10_19.root"); 
+    // TFile *file_analysis = TFile::Open("/mnt/data0/2014_06_25Al_dn_jbaker/output_2022_10_19.root"); 
+    TFile *file_analysis = TFile::Open("C:\\Users\\elite\\OneDrive\\Research\\analysis_25Al-2H-final\\data\\histograms\\output_2023_03_14-1.root"); 
 
     auto c1 = new TCanvas("c1","",325,325); // 325 pixels is 8.6 cm
     TH1F *h1 = (TH1F*)file_analysis->Get("InvMassExcEnergy");

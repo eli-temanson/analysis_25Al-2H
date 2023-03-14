@@ -57,31 +57,31 @@ void Analyzer::SetReactionInfo(){ std::cout<<"Setting Reaction Info \n";
 
 
 void Analyzer::LoadInputData(){ std::cout<<"Loading Input Data \n";
-    VarMap.LoadParams("input/Silicon.in");
-    VarMap.LoadParams("input/SiliconTime.in");
-    VarMap.LoadParams("input/S1FrontGMatch.in");
-    VarMap.LoadParams("input/S2FrontGMatch.in");
-    VarMap.LoadParams("input/S1BackGMatch.in");
-    VarMap.LoadParams("input/S2BackGMatch.in");
-    VarMap.LoadParams("input/SiliconChannelMap.in"); 
-    VarMap.LoadParams("input/IonChamber.in");
-    VarMap.LoadParams("input/IonChamberGridGain.in");
-    VarMap.LoadParams("input/Neutron.in");
-    VarMap.LoadParams("input/Timing.in"); 
+    VarMap.LoadParams("assets/input/Silicon.in");
+    VarMap.LoadParams("assets/input/SiliconTime.in");
+    VarMap.LoadParams("assets/input/S1FrontGMatch.in");
+    VarMap.LoadParams("assets/input/S2FrontGMatch.in");
+    VarMap.LoadParams("assets/input/S1BackGMatch.in");
+    VarMap.LoadParams("assets/input/S2BackGMatch.in");
+    VarMap.LoadParams("assets/input/SiliconChannelMap.in"); 
+    VarMap.LoadParams("assets/input/IonChamber.in");
+    VarMap.LoadParams("assets/input/IonChamberGridGain.in");
+    VarMap.LoadParams("assets/input/Neutron.in");
+    VarMap.LoadParams("assets/input/Timing.in"); 
 }
 
 void Analyzer::LoadGates(){ std::cout<<"Reading/Loading Gates \n";
-    ReadGates("gates/si_protons_small.root");
-    ReadGates("gates/si_theta_corr_tight.root");
-    ReadGates("gates/si_phi_corr.root");
-    ReadGates("gates/ic_band1_2022.root");
-    ReadGates("gates/ds_al25_band.root");
-    ReadGates("gates/ic_cluster_corr_tight.root");
-    ReadGates("gates/ic_t_Et.root");
-    ReadGates("gates/ic_p1.root");
-    ReadGates("gates/ic_p2.root");
-    ReadGates("gates/ic_p3.root");
-    ReadGates("gates/InvMassExcEnergy_vFrag.root");
+    ReadGates("assets/gates/si_protons_small.root");
+    ReadGates("assets/gates/si_theta_corr_tight.root");
+    ReadGates("assets/gates/si_phi_corr.root");
+    ReadGates("assets/gates/ic_band1_2022.root");
+    ReadGates("assets/gates/ds_al25_band.root");
+    ReadGates("assets/gates/ic_cluster_corr_tight.root");
+    ReadGates("assets/gates/ic_t_Et.root");
+    ReadGates("assets/gates/ic_p1.root");
+    ReadGates("assets/gates/ic_p2.root");
+    ReadGates("assets/gates/ic_p3.root");
+    ReadGates("assets/gates/InvMassExcEnergy_vFrag.root");
 
 
 }
@@ -359,7 +359,8 @@ void Analyzer::ProcessEvent(){
     //     // } 
     // }
 
-
+    //////////////////////////////////////////////
+    // Final event reconstruction done here!
     // if(false) 
     if(true) 
     {

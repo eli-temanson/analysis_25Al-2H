@@ -168,7 +168,7 @@ void Physics::SetReaction(const string &beam,const string &target,const string &
   
   cout<<"Setting Reaction \n";
   if(light == "p") { cout<<"Error!! use 1H not p \n"; exit(0); }
-  MassTable.LoadParams("input/MassTable.in");
+  MassTable.LoadParams("assets/input/MassTable.in");
   MassTable.GetParam(beam, Beam.M); 
   MassTable.GetParam(target, Target.M); 
   MassTable.GetParam(ejectile, Ejectile.M);

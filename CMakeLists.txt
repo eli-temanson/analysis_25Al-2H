@@ -19,12 +19,12 @@ else()
 endif()
 
 # Set -T Toolset
-if(WIN32)
-    set(CMAKE_VS_PLATFORM_TOOLSET_HOST_ARCHITECTURE x64)
-    message("Toolset set: x64")
-else()
-    message("Default configuration")
-endif()
+# if(WIN32)
+#     set(CMAKE_VS_PLATFORM_TOOLSET_HOST_ARCHITECTURE x64)
+#     message("Toolset set: x64")
+# else()
+#     message("Default configuration")
+# endif()
 
 #==============================
 

@@ -9,7 +9,7 @@ tail -f nohup.out
 ```
 
 ## Build
-Make sure the ROOT-CERN framework is installed on your target computer and ensure the it is in the users path i.e. source /PATH-2-ROOT-SOURCE/bin/thisroot.sh
+Make sure the ROOT-CERN framework is installed on your target computer and ensure the it is in the users path i.e. source /PATH-2-ROOT-SOURCE/bin/thisroot.sh. When running on a Windows OS, the build config must be defined at build time hense the --config keyword.
 
 ```
 cmake -B ./build
