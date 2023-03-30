@@ -1,19 +1,49 @@
 
-
-
 void cs_corr() {
 
     double cs = 5.83; 
     double cs_error = 0.87; 
 
     // fix ratio
-    Double_t X1[] = {0.0, 0.05, 0.2};
-    Double_t Y1[]= {0.0, 3.67, 14.69};
+    // Double_t X1[] = {0.0, 0.05, 0.2};
+    // Double_t Y1[]= {0.0, 3.67, 14.69};
+    // auto data1 = new TGraph(3,X1,Y1);
+
+    Double_t X[] = {0.09, 0.11, 0.13};
+    Double_t Y[]= {7.36, 8.08, 8.8};
+    Double_t eX[] = {0,0,0};
+    Double_t eY[]= {0.92,0.92,0.92};
+    auto dataHM = new TGraphErrors(3, X, Y, eX, eY);
+    // auto data = new TGraph(1,X,Y);
+
+    Double_t X1[] = {0.0, 0.11, 0.2};
+    Double_t Y1[]= {0.0, 8.08, 14.69};
     auto data1 = new TGraph(3,X1,Y1);
 
+    Double_t upX1[] = {0.0 , 0.11,  0.2 };
+    Double_t upY1[] = {0.0, 9.0, 16.36};
+    auto data1_up = new TGraph(3,upX1,upY1);
+
+    Double_t lowX1[] = {0.0 , 0.11,  0.2 };
+    Double_t lowY1[] = {0.0, 7.87, 14.31};
+    auto data1_low = new TGraph(3,lowX1,lowY1);
+
     // fix C2S(l=2)
-    // Double_t X2[] = {0.05, 0.2};
-    // Double_t Y2[] = {5.93, 11.30};
+    // Double_t X2[] = {0.0 , 0.11,  0.2 };
+    // Double_t Y2[] = {4.13, 8.08, 11.30};
+    // auto data2 = new TGraph(3,X2,Y2);
+
+    // Double_t upX2[] = {0.0 , 0.11,  0.2 };
+    // Double_t upY2[] = {5.05, 9.0, 12.22};
+    // auto data2_up = new TGraph(3,upX2,upY2);
+
+    // Double_t lowX2[] = {0.0 , 0.11,  0.2 };
+    // Double_t lowY2[] = {3.22, 7.16, 10.38};
+    // auto data2_low = new TGraph(3,lowX2,lowY2);
+
+    // fix C2S(l=2)
+    // Double_t X2[] = {0.0, 0.05, 0.2};
+    // Double_t Y2[] = {0.0, 5.93, 11.30};
     // auto data2 = new TGraph(2,X2,Y2);
 
 
@@ -21,7 +51,8 @@ void cs_corr() {
     gPad->SetTicks();
     Double_t pltXmin=0.0, pltXmax=0.2;
     Double_t pltYmin=0.0, pltYmax=14.0;
-    auto frame = c1->DrawFrame(pltXmin,pltYmin, pltXmax,pltYmax,";C^{2}S (l=0);#sigma (3^{+}) (mb)");
+    auto frame = c1->DrawFrame(pltXmin,pltYmin, pltXmax,pltYmax,
+        ";C^{2}S (l=0);#sigma (3^{+}) (mb)");
 
     frame->GetYaxis()->SetTitleSize(0.045);
     frame->GetYaxis()->SetTitleOffset(1.0);
@@ -47,24 +78,43 @@ void cs_corr() {
     // Double_t eY[1] = {1.64};
     // auto data = new TGraphErrors(1,X,Y,eX,eY);
     // data->Draw();
-    auto c2s_hamill_low = new TLine(0.09, 0, 0.09, 8);
-    c2s_hamill_low->SetLineStyle(3);
-    c2s_hamill_low->Draw();
 
-    auto c2s_hamill_high = new TLine(0.11, 0, 0.11, 8);
-    c2s_hamill_high->SetLineStyle(3);
-    c2s_hamill_high->Draw();
+    // auto c2s_hamill_low = new TLine(0.09, 0, 0.09, 8);
+    // c2s_hamill_low->SetLineStyle(3);
+    // // c2s_hamill_low->Draw();
+
+    // auto c2s_hamill_high = new TLine(0.13, 0, 0.13, 8);
+    // c2s_hamill_high->SetLineStyle(3);
+    // // c2s_hamill_high->Draw();
 
     Int_t col1 = TColor::GetColor("#c8b95d");
     Int_t col2 = TColor::GetColor("#2cb4a4");
     Int_t col3 = TColor::GetColor("#342c84");
     Int_t col4 = TColor::GetColor("#1484d4");
 
+
+    dataHM->SetFillColor(kGray+3);
+    dataHM->SetFillStyle(3001);
+    dataHM->Draw("3");
+
+    data1->SetLineWidth(2);
     data1->SetLineColor(col4);
     data1->Draw();
-    // data2->SetLineColor(col4);
-    // data2->Draw();
+    // data1_up->SetLineWidth(2);
+    // data1_up->SetLineColor(col4);
+    // data1_up->SetFillColor(col4);
+    // data1_up->Draw("F");
+    // data1_low->SetLineWidth(2);
+    // data1_low->SetLineColor(col4);
+    // data1_low->SetFillColor(col4);
+    // data1_low->Draw("F");
 
+    // data2->SetLineColor(3);
+    // data2->Draw();
+    // data2_up->SetLineColor(col3);
+    // data2_up->Draw();
+    // data2_low->SetLineColor(col3);
+    // data2_low->Draw();
 
     // plot lines TLine(Double_t x1,Double_t y1,Double_t x2,Double_t y2)
     auto cross_section = new TLine(pltXmin, cs, pltXmax, cs);
@@ -84,14 +134,11 @@ void cs_corr() {
     legend->AddEntry(data,"C^{2}S_{l=0} = 0.08 from #sigma matching","p");
     legend->AddEntry(data1,"CRC with fixed C^{2}S_{l=0}/C^{2}S_{l=2}","l");
     legend->AddEntry(cross_section,"Experimental Cross-section","l");
-    legend->AddEntry(c2s_hamill_low,"Hamill et. al, ^{26}Mg","l");
+    // legend->AddEntry(c2s_hamill_low,"Hamill et. al, ^{26}Mg","l");
+    legend->AddEntry(dataHM,"Hamill et. al, ^{26}Mg","f");
 
     legend->SetTextSize(0.04);
     legend->Draw("SAME");
-
-
-
-
 
 
     // const Int_t n = 500;
