@@ -1,0 +1,293 @@
+CRC p + 25Al 
+NAMELIST
+&FRESCO
+    ! Radial coordinates
+    hcm = 0.10 rmatch = 55.0 
+    rintp = 0.20 hnl = 0.20 rnl = 5.0 centre = 0.0
+    ! Partial waves
+    jtmin = 0.0 jtmax = 20.0 
+    absend = +0.0 dry = F
+    ! Angular distributions
+    kqmax = 0 pp = 0 koords = 1
+    thmin = 0.0 thmax = 180.0 thinc = 0.5
+    ! Solving equations
+    ips = 0.0 it0 = 0 iter = 1 iblock = 1 pade = 1
+    nnu = 48 epc = 0 pade = 0 dk = 0.001
+    ! Trace variables
+    chans = 1 listcc = 1 smats = 2 
+    ! Output details
+    xstabl = 3 nlpl = 0 lampl = -3 veff = 1 kfus = 0 bpm = 1
+    ! Incident channel
+    elab = 7.379 pel=1 exl=1 lin = 1 /
+    ! elab = 98.9 pel=1 exl=1 lin = 2 /
+# ----------------------------------------------------------
+
+# entrance channel
+&partition 
+    namep = '2H' 
+    massp = 2.0141 
+    zp = 1
+    namet = '25Al' 
+    masst = 24.9904 
+    zt = 13
+    nex = 1 
+    qval = 0.00 /
+
+# states for the entrance channel
+&states jp = 1.0 ptyp = 1 ep = 0.0 cpot = 1 jt = 2.5 ptyt = 1 et = 0.0 /
+
+# exit channel
+&partition 
+    namep = '1N' 
+    massp = 1.0087 
+    zp = 0
+    namet = '26Si' 
+    masst = 25.9923 
+    zt = 14
+    nex = 5
+    qval = 3.2933 /
+
+# states for the exit channel
+&states jp = 0.5 ptyp = 1 ep = 0.0 cpot = 2 jt = 0.0 ptyt =+1 et = 0.000 /
+&states jp = 0.5 ptyp = 1 ep = 0.0 cpot = 2 jt = 2.0 ptyt =+1 et = 1.797 /
+&states jp = 0.5 ptyp = 1 ep = 0.0 cpot = 2 jt = 3.0 ptyt =+1 et = 5.927 /
+&states jp = 0.5 ptyp = 1 ep = 0.0 cpot = 2 jt = 2.0 ptyt =+1 et = 6.295 /
+&states jp = 0.5 ptyp = 1 ep = 0.0 cpot = 2 jt = 3.0 ptyt =-1 et = 6.787 /
+
+# end of partiton
+&partition / 
+# ----------------------------------------------------------
+
+# entrance channel potential
+# coulomb term for a charged sphere
+&pot kp = 1 type = 0
+    ap = 0.0 
+    at = 25.0 
+    rc = 1.303 / 
+# central volume potential, Woods-Saxon
+&pot kp = 1 type = 1 shape = 0
+    p1 = 88.80 
+    p2 = 1.149 
+    p3 = 0.756 
+    p4 = 2.60
+    p5 = 1.339
+    p6 = 0.563 /
+# central derivative potential, Woods-Saxon
+&pot kp = 1 type = 2 shape = 0
+    p4 = 10.10
+    p5 = 1.386
+    p6 = 0.712 /
+# spin-orbit potential for the projectile, Woods-Saxon
+&pot kp = 1 type = 3 shape = 0 
+    p1 = 3.56 
+    p2 = 0.972 
+    p3 = 1.011 /
+
+# ----------------------------------------------------------
+
+# exit channel potential
+# coulomb term for a charged sphere
+&pot kp = 2 type = 0
+    ap = 0.0
+    at = 26.0
+    rc = 1.2 / 
+# central volume potential, Woods-Saxon
+&pot kp = 2 type = 1 shape = 0
+    p1 = 53.01 
+    p2 = 1.167 
+    p3 = 0.674 
+    p4 = 0.65
+    p5 = 1.167
+    p6 = 0.674 /
+# central derivative potential, Woods-Saxon
+&pot kp = 2 type = 2 shape = 0
+    p4 = 8.23
+    p5 = 1.295
+    p6 = 0.540 /
+# spin-orbit potential for the projectile, Woods-Saxon
+&pot kp = 2 type = 3 shape = 0 
+    p1 = 5.59
+    p2 = 0.967 
+    p3 = 0.590 /
+
+# ----------------------------------------------------------
+
+# single-particle proton
+# coulomb term for a charged sphere
+&pot kp = 3 type = 0
+    ap = 1.0 
+    at = 0.0 
+    rc = 1.25 / 
+# central volume potential, Reid soft core for T =0, central part
+&pot kp = 3 type = 1 shape = 5
+    p1 = 1.0  
+    p3 = 1.0 /
+# spin-orbit potential for projectile, Reid soft core for T =0, central part
+&pot kp = 3 type = 3 shape = 5
+    p1 = 1.0  
+    p3 = 1.0 /
+# spin-orbit potential for target, Reid soft core for T =0, central part
+&pot kp = 3 type = 4 shape = 5
+    p1 = 1.0  
+    p3 = 1.0 /
+# Tensor force between L and combined projectile+target spins (e.g. n-p tensor force)
+# Reid soft core for T =0, central part
+&pot kp = 3 type = 7 shape = 5
+    p1 = 1.0  
+    p3 = 1.0 /
+# ----------------------------------------------------------
+
+# 25Al core 
+# coulomb term for a charged sphere
+&pot kp = 4 type = 0
+    ap = 25.0
+    at = 0.0 
+    rc = 1.25 / 
+# central volume potential, Woods-Saxon
+&pot kp = 4 type = 1 shape = 0
+    p1 = 50.0 
+    p2 = 1.25 
+    p3 = 0.65  /
+# spin-orbit potential for the projectile, Woods-Saxon
+&pot kp = 4 type = 3 shape = 0 
+    p1 = 6.0 
+    p2 = 1.25 
+    p3 = 0.65  /
+
+&pot / # end of potential definitions
+# ----------------------------------------------------------
+
+# deuterium breakup 
+&overlap kn1 = 1 kn2 = 2
+    ic1 = 1 ic2 = 2 in = -1
+    kind = 3
+    ch1 = ' '
+    nn = 1
+    l = 0 lmax = 2 sn = 0.5
+    ia = 1
+    j = 1.5
+    ib = 1
+    kbpot = 3 krpot = 0
+    be = 2.2260
+    isc = 0 ipc = 3 nfl = 0 /
+
+#
+&overlap kn1 = 3
+    ic1 = 1 ic2 = 2 in = -2
+    kind = 0
+    nn = 1 l = 2 sn = 0.5 j = 2.5
+    kbpot = 4 krpot = 0
+    be = 5.5138
+    isc = 1 ipc = 0 nfl = 0 /
+
+#
+&overlap kn1 = 4
+    ic1 = 1 ic2 = 2 in = -2
+    kind = 0
+    nn = 2 l = 0 sn = 0.5 j = 0.5
+    kbpot = 4 krpot = 0
+    be = 3.7168
+    isc = 1 ipc = 0 nfl = 0 /
+&overlap kn1 = 5
+    ic1 = 1 ic2 = 2 in = -2
+    kind = 0
+    nn = 1 l = 2 sn = 0.5 j = 1.5
+    kbpot = 4 krpot = 0
+    be = 3.7168
+    isc = 1 ipc = 0 nfl = 0 /
+&overlap kn1 = 6
+    ic1 = 1 ic2 = 2 in = -2
+    kind = 0
+    nn = 1 l = 2 sn = 0.5 j = 2.5
+    kbpot = 4 krpot = 0
+    be = 3.7168
+    isc = 1 ipc = 0 nfl = 0 /
+
+# 
+&overlap kn1 = 7
+    ic1 = 1 ic2 = 2 in = -2
+    kind = 0
+    nn = 2 l = 0 sn = 0.5 j = 0.5
+    kbpot = 4 krpot = 0
+    be = 0.05
+    isc = 1 ipc = 0 nfl = 0 /
+&overlap kn1 = 8
+    ic1 = 1 ic2 = 2 in = -2
+    kind = 0
+    nn = 1 l = 2 sn = 0.5 j = 1.5
+    kbpot = 4 krpot = 0
+    be = 0.05
+    isc = 1 ipc = 0 nfl = 0 /
+&overlap kn1 = 9
+    ic1 = 1 ic2 = 2 in = -2
+    kind = 0
+    nn = 1 l = 2 sn = 0.5 j = 2.5
+    kbpot = 4 krpot = 0
+    be = 0.05
+    isc = 1 ipc = 0 nfl = 0 /
+
+# 
+&overlap kn1 = 10
+    ic1 = 1 ic2 = 2 in = -2
+    kind = 0
+    nn = 2 l = 0 sn = 0.5 j = 0.5
+    kbpot = 4 krpot = 0
+    be = 0.05
+    isc = 1 ipc = 0 nfl = 0 /
+&overlap kn1 = 11
+    ic1 = 1 ic2 = 2 in = -2
+    kind = 0
+    nn = 1 l = 2 sn = 0.5 j = 1.5
+    kbpot = 4 krpot = 0
+    be = 0.05
+    isc = 1 ipc = 0 nfl = 0 /
+&overlap kn1 = 12
+    ic1 = 1 ic2 = 2 in = -2
+    kind = 0
+    nn = 1 l = 2 sn = 0.5 j = 2.5
+    kbpot = 4 krpot = 0
+    be = 0.05
+    isc = 1 ipc = 0 nfl = 0 /
+
+# 
+&overlap kn1 = 13
+    ic1 = 1 ic2 = 2 in = -2
+    kind = 0
+    nn = 2 l = 1 sn = 0.5 j = 0.5
+    kbpot = 4 krpot = 0
+    be = 0.05
+    isc = 1 ipc = 0 nfl = 0 /
+&overlap kn1 = 14
+    ic1 = 1 ic2 = 2 in = -2
+    kind = 0
+    nn = 2 l = 1 sn = 0.5 j = 1.5
+    kbpot = 4 krpot = 0
+    be = 0.05
+    isc = 1 ipc = 0 nfl = 0 /
+&overlap kn1 = 15
+    ic1 = 1 ic2 = 2 in = -2
+    kind = 0
+    nn = 1 l = 3 sn = 0.5 j = 3.5 
+    kbpot = 4 krpot = 0
+    be = 0.05
+    isc = 1 ipc = 0 nfl = 0 /
+
+&overlap /
+# ----------------------------------------------------------
+&coupling icto = -2 icfrom = 1 kind = 7 ip1 = 0 ip2 = -1 ip3 = 0 ip4 = 0 ip5 = 0 infile = 0 /
+    &cfp in = 1 ib = 1 ia = 1 kn = 1 a =  1.0000 /
+    &cfp in = 2 ib = 1 ia = 1 kn = 3 a =  1.6763 /
+    &cfp in = 2 ib = 2 ia = 1 kn = 4 a =  0.2659 /
+    &cfp in = 2 ib = 2 ia = 1 kn = 5 a =  0.0000 /
+    &cfp in = 2 ib = 2 ia = 1 kn = 6 a = -0.4840 /
+    &cfp in = 2 ib = 3 ia = 1 kn = 7 a =  0.3507 /
+    &cfp in = 2 ib = 3 ia = 1 kn = 8 a = -0.4833 /
+    &cfp in = 2 ib = 3 ia = 1 kn = 9 a =  0.0000 /
+    &cfp in = 2 ib = 4 ia = 1 kn =10 a = -0.1992 /
+    &cfp in = 2 ib = 4 ia = 1 kn =11 a =  0.0000 /
+    &cfp in = 2 ib = 4 ia = 1 kn =12 a =  0.4015 /
+    &cfp in = 2 ib = 5 ia = 1 kn =13 a =  0.0000 /
+    &cfp in = 2 ib = 5 ia = 1 kn =14 a = -0.4835 /
+    &cfp in = 2 ib = 5 ia = 1 kn =15 a =  0.2534 /
+    &cfp /
+&coupling /
