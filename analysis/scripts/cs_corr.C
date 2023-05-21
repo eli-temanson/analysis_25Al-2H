@@ -7,8 +7,10 @@ void cs_corr() {
     Int_t col4 = TColor::GetColor("#1484d4");
     
     double cs = 5.83; 
-    double cs_error = 0.87; 
-
+    double cs_stat = 0.09;
+    double cs_sys = 0.78;
+    double cs_error = cs_stat + cs_sys; 
+    
     Double_t X[] = {0.09, 0.11, 0.13};
     Double_t Y[]= {7.36, 8.08, 8.8};
     Double_t eX[] = {0,0,0};
@@ -63,7 +65,7 @@ void cs_corr() {
     frame->GetXaxis()->SetLabelSize(0.045);
     frame->GetXaxis()->SetNdivisions(509);
 
-    Double_t x[1] = {0.08};
+    Double_t x[1] = {0.0793};
     Double_t y[1] = {5.83};
     auto data = new TGraph(1,x,y);
     data->SetMarkerColor(2);
