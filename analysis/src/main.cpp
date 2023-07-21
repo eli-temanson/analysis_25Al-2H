@@ -29,8 +29,9 @@ int main(int argc,char *argv[])
 
     // auto data_path = std::filesystem::path("/mnt/data0/2014_06_25Al_dn_jbaker/ds_output.root").string().c_str();
 
-    auto out_file = new TFile("C:\\Users\\elite\\OneDrive\\Research\\analysis_25Al-2H-final\\data\\histograms\\output_2023_03_14.root","RECREATE");
+    // auto out_file = new TFile("C:\\Users\\elite\\OneDrive\\Research\\analysis_25Al-2H-final\\data\\histograms\\output_2023_03_14.root","RECREATE");
     // auto out_file = new TFile("/mnt/data0/2014_06_25Al_dn_jbaker/output_2023_01_09.root","RECREATE");
+    auto out_file = new TFile("/mnt/data0/2014_06_25Al_dn_jbaker/output_2023_07_21.root","RECREATE");
     auto data_chain = new TChain("DataTree");
     auto hist_table = new THashTable();  
 
@@ -55,8 +56,9 @@ int main(int argc,char *argv[])
     // data_chain->Add("/mnt/data0/2014_06_25Al_dn_jbaker/run323[012].root");
     
     // Used for final results 
+    data_chain->Add("/mnt/data0/2014_06_25Al_dn_jbaker/Filtered_noDS.root");
     // data_chain->Add("/mnt/data0/2014_06_25Al_dn_jbaker/Filtered_noDS.root");
-    data_chain->Add("C:\\Users\\elite\\OneDrive\\Research\\analysis_25Al-2H-final\\data\\filtered\\Filtered_noDS.root");
+    // data_chain->Add("C:\\Users\\elite\\OneDrive\\Research\\analysis_25Al-2H-final\\data\\filtered\\Filtered_noDS.root");
 
     Analyzer b(data_chain, out_file, hist_table);
     b.LoadInputData();
