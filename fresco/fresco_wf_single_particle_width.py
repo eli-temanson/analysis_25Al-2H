@@ -17,14 +17,17 @@ mu=1007825.031898*24990428.31/(1007825.031898 + 24990428.31) * 1E-6 # amu
 Zp=1
 Zt=13
 
-E=0.4154 # MeV 0.4154(8) = 0.4146 - 0.4162
+E=0.4154 # MeV 0.4154(8)
+#E=0.4146 # MeV low limit
+#E=0.4162 # MeV upper limit
 k=0.218735*np.sqrt(mu*E)
 print('wave number, k = ', "{:6f}".format(k))
 eta=0.1574854*Zp*Zt*np.sqrt(mu/E)
 print('sommerfeld parameter, coulomb eta = ', "{:6f}".format(eta))
 
 r0=1.25
-ChannelRadius=r0*(1 + 25**(1.0/3.0))
+r0=r0-r0*0.04 # 5% change
+ChannelRadius=r0*(1.0 + 25.0**(1.0/3.0))
 print('channel radius = ', "{:6f}".format(ChannelRadius), ' (fm)')
 
 print('wavelength to sie ratio = ', "{:6f}".format(k*ChannelRadius))
@@ -60,7 +63,7 @@ print('Single-Particle Width = ' \
     + mp.nstr(reduced_width_sqr*penetrability*2*HBARC**2/(931.494*mu*ChannelRadius**2)*1E6)+ ' (eV)')
 
 fig, ax = plt.subplots()
-plt.style.use('fivethirtyeight')
+# plt.style.use('fivethirtyeight')
 
 ax.plot(wave_function[0], wf(wave_function[0])**2)
 ax.axvline(x=ChannelRadius,color='r',linestyle='--',label='Channel Radius = {:.2f}'.format(ChannelRadius))
@@ -75,3 +78,5 @@ ax.legend()
 # ax.text(10, 0.2, eq1, color="C2", fontsize=18)
 
 plt.show()
+
+
