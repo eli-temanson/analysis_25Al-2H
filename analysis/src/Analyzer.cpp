@@ -201,8 +201,8 @@ void Analyzer::ProcessEvent(){
 
     //////////////////////////////////////////////
     // Monitoring events are done here
-    if(false)
-    // if(true)
+    //if(false)
+    if(true)
     {
         if(!InsideGate(IonCds.TRaw(),2500,2510)) return; 
         if(!InsideGate(ic.ESeg.TRaw(),391,404)) return; 
@@ -241,11 +241,12 @@ void Analyzer::ProcessEvent(){
         MyFill(table0,"DS_ic_yClustE_ESeg",512,0,4096,ic.ycluster.E(),1000,0,100,ic.ESeg.E());
 
         MyFill(table0,"DS_IonC_RawPID",2048,0,2048,ic.ESeg.ERaw(),2048,0,2048,ic.DESeg.ERaw());    
+        MyFill(table0,"DS_IonC_RawPID_1",4092,0,4092,ic.ESeg.ERaw()+ic.DESeg.ERaw(),2048,0,2048,ic.DESeg.ERaw());    
         MyFill(table0,"DS_IonC_PID_0",10000,0,100,ic.ESeg.E(),5000,0,50,ic.DESeg.E());
         MyFill(table0,"DS_IonC_PID_1",10000,0,100,ic.ESeg.E()+ic.DESeg.E(),5000,0,50,ic.DESeg.E());
         MyFill(table0,"DS_IonC_ESeg_ERaw",4096,0,4096,ic.ESeg.ERaw());
         MyFill(table0,"DS_IonC_DESeg_ERaw",4096,0,4096,ic.DESeg.ERaw());
-
+        return;
         if(InsideGate(ic.ESeg.T(),118,121)){
             MyFill(table0,"DS_IonC_RawPID_t1",1024,0,2048,ic.ESeg.ERaw(),1024,0,2048,ic.DESeg.ERaw());    
             MyFill(table0,"DS_IonC_PID_t1",6000,0,120,ic.ESeg.E()+ic.DESeg.E(),2500,0,50,ic.DESeg.E());
@@ -361,8 +362,8 @@ void Analyzer::ProcessEvent(){
 
     //////////////////////////////////////////////
     // Final event reconstruction done here!
-    // if(false) 
-    if(true) 
+    if(false) 
+    // if(true) 
     {
         // Select only monitoring ion chamber events
         // if(!InsideGate(IonCds.TRaw(),2490,2510.0) || !InsideGate(S1Trig.TRaw(),-1.0,1.0)) return;

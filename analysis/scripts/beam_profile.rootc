@@ -5,10 +5,12 @@
 void beam_profile()
 {
 
-    TFile *file1 = TFile::Open("~/data/2016_25Al_d_n/filtered/ds_output_2022_10_14.root");
+    TFile *file1 = TFile::Open("/mnt/data0/2014_06_25Al_dn_jbaker/ds_output_2022_10_19.root");
+    // TFile *file1 = TFile::Open("~/data/2016_25Al_d_n/filtered/ds_output_2022_10_14.root");
 
     auto c1 = new TCanvas("c1","c1",325,325);
-    TH2F *h1 = (TH2F*)file1->Get("DS_IonC_RawPID"); 
+    TH2F *h1 = (TH2F*)file1->Get("DS_IonC_RawPID_1"); 
+    // TH2F *h1 = (TH2F*)file1->Get("DS_IonC_RawPID"); 
 
     gStyle->SetOptStat(0);  
     h1->SetTitle(";Energy Deposited (arb.); Energy Loss (arb.)");
